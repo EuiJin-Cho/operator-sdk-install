@@ -47,7 +47,7 @@ cd $HOME/projects/memcached-operator
 
 Create a new project 
 ```
-operator-sdk init --domain example.com --repo github.com/example/memcached-operato
+operator-sdk init --domain example.com --repo github.com/example/memcached-operator
 
 ```
 
