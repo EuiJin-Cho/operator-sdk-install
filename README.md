@@ -57,6 +57,33 @@ operator-sdk create api --group cache --version v1alpha1 --kind Memcached --reso
 
 ```
 
+Modify under file
+/root/projects/memcached-operator/api/v1alpha1/memcached_types.go
+/root/projects/memcached-operator/controllers/memcached_controller.go
+/root/projects/memcached-operator/main.go
+```
+```
+
+
+Operator build on /root/projects/memcached-operator and check
+```
+make install
+kubectl get crd
+```
+
+run operator
+```
+make run ENABLE_WEBHOOKS=false
+```
+
+deploy CR
+modify yaml file - create spec:size field (ex. size: 3)
+```
+kubectl apply -f /root/projects/memcached-operator/config/samples/cache_v1alpha1_memcached.yaml
+```
+
+
+
 ### modified main.go
 original main.go
 ```
@@ -79,23 +106,4 @@ modified main.go
  94                 setupLog.Error(err, "unable to create controller", "controller", "Memcached")
  95                 os.Exit(1)
  96         }
-```
-
-
-
-Operator build on /root/projects/memcached-operator and check
-```
-make install
-kubectl get crd
-```
-
-run operator
-```
-make run ENABLE_WEBHOOKS=false
-```
-
-deploy CR
-modify yaml file - create spec:size field (ex. size: 3)
-```
-kubectl apply -f /root/projects/memcached-operator/config/samples/cache_v1alpha1_memcached.yaml
 ```
