@@ -56,3 +56,15 @@ Create a new API, Controller
 operator-sdk create api --group cache --version v1alpha1 --kind Memcached --resource --controller
 
 ```
+
+
+Operator build on /root/projects/memcached-operator and check
+```
+make install
+kubectl get crd
+```
+
+run operator
+```
+make run ENABLE_WEBHOOKS=false
+```
