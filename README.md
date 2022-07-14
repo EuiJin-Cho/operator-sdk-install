@@ -57,6 +57,31 @@ operator-sdk create api --group cache --version v1alpha1 --kind Memcached --reso
 
 ```
 
+### modified main.go
+original main.go
+```
+ 89         if err = (&controllers.MemcachedReconciler{
+ 90                 Client: mgr.GetClient(),
+ 91                 Scheme: mgr.GetScheme(),
+ 92         }).SetupWithManager(mgr); err != nil {
+ 93                 setupLog.Error(err, "unable to create controller", "controller", "Memcached")
+ 94                 os.Exit(1)
+ 95         }
+```
+
+modified main.go
+```
+ 89         if err = (&controllers.MemcachedReconciler{
+ 90                 Client: mgr.GetClient(),
+ 91                 Log:    ctrl.Log.WithName("controllers").WithName("memcached"),
+ 92                 Scheme: mgr.GetScheme(),
+ 93         }).SetupWithManager(mgr); err != nil {
+ 94                 setupLog.Error(err, "unable to create controller", "controller", "Memcached")
+ 95                 os.Exit(1)
+ 96         }
+```
+
+
 
 Operator build on /root/projects/memcached-operator and check
 ```
@@ -67,4 +92,10 @@ kubectl get crd
 run operator
 ```
 make run ENABLE_WEBHOOKS=false
+```
+
+deploy CR
+modify yaml file - create spec:size field (ex. size: 3)
+```
+kubectl apply -f /root/projects/memcached-operator/config/samples/cache_v1alpha1_memcached.yaml
 ```
