@@ -85,6 +85,8 @@ kubectl apply -f /root/projects/memcached-operator/config/samples/cache_v1alpha1
 
 
 ### modified main.go
+ref: https://github.com/kubernetes-sigs/kubebuilder/issues/766
+
 original main.go
 ```
  89         if err = (&controllers.MemcachedReconciler{
